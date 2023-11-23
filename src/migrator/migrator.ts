@@ -72,7 +72,8 @@ export const migrateFile = async (project: Project, sourceFile: SourceFile) => {
 };
 
 export const migrateDirectory = async (directoryPath: string, toSFC: boolean) => {
-  const directoryToMigrate = path.join(process.cwd(), directoryPath);
+  const isAbsolute = directoryPath.startsWith('/')
+  const directoryToMigrate = isAbsolute ? directoryPath : path.join(process.cwd(), directoryPath);
   const project = new Project({});
 
   project.addSourceFilesAtPaths(`${directoryToMigrate}/**/*.(ts|vue|scss)`)
